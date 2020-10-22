@@ -12,16 +12,16 @@ class Solution {
             if (!rest.contains(sub) || rest.indexOf(" ")==-1 ) {
                 s.add(sub);
             }
-            if (rest.indexOf(" ")!=-1) {
+            //if (rest.indexOf(" ")!=-1) {
                 while (rest.contains(sub)) {
                     int m = rest.indexOf(sub);
-                    if (m+sub.length()+1<rest.length() && !rest.substring(m,m+sub.length()).equals(sub)) {
+                    if (m+sub.length()+1<rest.length() && rest.substring(m,m+sub.length()).equals(sub)) {
                         rest=rest.substring(0,m)+rest.substring(m+sub.length()+1);
                     } else {
                         rest=rest.substring(0,m-1);
                     }
                 } 
-            }
+            //}
             D=rest;
             n=D.indexOf(" ");
             if (n==-1) {
