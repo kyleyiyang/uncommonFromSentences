@@ -10,11 +10,8 @@ class Solution {
     }
     public static String recursion(String i, String o) {
         int n = i.indexOf(" ");
-       // System.out.println("n="+n);
-       // System.out.println("i="+i);
         if (n==-1) {
             o=o+i+" ";
-           // System.out.println("o="+o);
             return o;
         } else {
         String sub = i.substring(0,n);
@@ -24,6 +21,9 @@ class Solution {
             o=o+sub+" ";
             
         }
+        if (rest.indexOf(' ')==-1 && !sub.equals(rest)) {
+            o=o+sub+" ";
+        }
         while (rest.contains(sub)) {
             if (sub.equals(rest)) {
                 return o;
@@ -31,7 +31,6 @@ class Solution {
             int z = rest.indexOf(sub);
             
             if (rest.contains(" "+sub+" ")) {
-                
                 rest = rest.substring(0,z)+rest.substring(z+sub.length()+1);
             } else if (rest.contains(sub+" ")) {
                 if (z==0) {
@@ -43,14 +42,26 @@ class Solution {
                         break;
                     }
                 }
-            } else if (rest.contains(" "+sub) && z+sub.length()==rest.length()) {
-                rest = rest.substring(0, z-1);
-            } else {
+            } else if (rest.contains(" "+sub)) {
+                if (z+sub.length()==rest.length()) {
+                    rest = rest.substring(0, z-1);
+                } else {
+                    if (rest.charAt(z+1) != ' ') {
+                        o=o+sub+" ";
+                        break;
+                    }
+                }
+            } else {break;}
+            /*if (b==false) {
                 o=o+sub+" ";
-                System.out.println(rest.contains(sub+' '));
-              System.out.println("o="+o);
                 break;
-            }
+            }*/
+            //else {
+                //o=o+sub+" ";
+                
+              //System.out.println("o="+o);
+               //break;
+           // }
         }
         
         return recursion(rest,o);
