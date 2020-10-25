@@ -1,72 +1,30 @@
 class Solution {
     public String[] uncommonFromSentences(String A, String B) {
-        String D = A+" "+B;
-        String out="";
-        out = recursion(D,out);
-        String[] result = {};
-        if (out!="") {result=out.split(" ");}
-        return result;
-    }
-    public static String recursion(String i, String o) {
-        int n = i.indexOf(" ");
-        if (n==-1) {
-            o=o+i+" ";
-            return o;
-        } else {
-        String sub = i.substring(0,n);
-        String rest = i.substring(n+1);
-        if (rest.indexOf(sub)==-1) {
-            o=o+sub+" ";
-        } else if (rest.indexOf(' ')==-1 && !sub.equals(rest)) {
-            o=o+sub+" ";
-        } else {
-        int z = rest.indexOf(sub);
-        boolean flag=false;
-        while (rest.indexOf(sub)!=-1 && z>=0) {
-            if (sub.equals(rest)) {
-                return o;
-            }
-            if (rest.indexOf(" "+sub+" ",z-1)!=-1) {
-                rest = rest.substring(0,z)+rest.substring(z+sub.length()+1);
-                z = rest.indexOf(sub);
-                flag=true;
-            } else if (rest.indexOf(sub+" ",z)!=-1) {
-                flag=true;
-                if (z==0) {
-                rest = rest.substring(sub.length()+1);
-                    z = rest.indexOf(sub);
-                } else {
-                    if (rest.charAt(z-1) != ' ' && rest.indexOf(sub,z+1)==-1) {
-                        o=o+sub+" ";
-                        break;
+        String[] A_ = A.split(" ");
+        String[] B_ = B.split(" ");
+        List<String> out = new ArrayList<>(Arrays.asList(A_));
+        out.addAll(Arrays.asList(B_));
+        for (String a : A_) {
+            for (String b : B_) {
+                if (a.equals(b)) {
+                    while (out.contains(a)) {
+                        out.remove(a);
                     }
-                    z = rest.indexOf(sub,z+1);
-                }
-            } else if (rest.indexOf(" "+sub,z-1)!=-1) {
-                flag=true;
-                
-                if (z+sub.length()==rest.length()) {
-                    rest = rest.substring(0, z-1);
-                    z = rest.indexOf(sub);
-                    break;
-                } else {
-                    if (rest.charAt(z+1) != ' ' && rest.indexOf(sub,z+1)==-1) {
-                        o=o+sub+" ";
-                        break;
-                    }
-                    z = rest.indexOf(sub,z+1);
-                }
-            } else {
-                z = rest.indexOf(sub,z+1);
-                if (z==-1 && !flag) {
-                    o=o+sub+" ";
-                    break;
                 }
             }
-            
         }
+        List<String> result = new ArrayList<>(out);
+        for (int i=0; i<out.size()-1;i++) {
+            for (int j=i+1;j<out.size();j++) {
+                String s=out.get(i);
+                if (s.equals(out.get(j))) {
+                    while (result.contains(s)) {
+                        result.remove(s);
+                    }
+                }
+            }
         }
-        return recursion(rest,o);
-        }
+        String[] array = result.toArray(new String[0]);
+        return array;
     }
 }
