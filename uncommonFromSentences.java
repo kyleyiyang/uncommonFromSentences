@@ -4,7 +4,7 @@ class Solution {
         String[] B_ = B.split(" ");
         List<String> out = new ArrayList<>(Arrays.asList(A_));
         out.addAll(Arrays.asList(B_));
-        for (String a : A_) {
+        /*for (String a : A_) {
             for (String b : B_) {
                 if (a.equals(b)) {
                     while (out.contains(a)) {
@@ -12,7 +12,7 @@ class Solution {
                     }
                 }
             }
-        }
+        }*/
         List<String> result = new ArrayList<>(out);
         for (int i=0; i<out.size()-1;i++) {
             for (int j=i+1;j<out.size();j++) {
